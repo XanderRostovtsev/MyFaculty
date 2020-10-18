@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model RoleViewModel
+@{
+    ViewData["Title"] = "Роли";
+    <h2>Редактировать роли для @Model.UserName</h2>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" name="userId" value="@Model.UserId" />
+        <div class="form-group">
+            <table>
+                <tbody>
+                    @foreach (IdentityRole role in Model.AllRoles)
+                    {
+                        <tr>
+                            <td width="20">
+                                <input type="checkbox" name="roles" value="@role.Name"
+                                       @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />
+                            </td>
+                            <td>
+                                <big>@role.Name</big>
+                                <br />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-success">Сохранить</button>
+    </form>
+}
+

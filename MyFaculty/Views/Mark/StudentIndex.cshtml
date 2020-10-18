@@ -1,0 +1,25 @@
+﻿@model StudentViewModel
+@{
+    ViewData["Title"] = "Marks";
+    <h2><big>@Model.LastName @Model.FirstName @Model.MiddleName marks</big></h2>
+
+    <table class="table-striped table-responsive table-bordered" width="800">
+        <tbody>
+            <tr>
+                <td><h4><big>Семестер</big></h4></td>
+                <td><h4><big>Предмет</big></h4></td>
+                <td><h4><big>Преподаватель</big></h4></td>
+                <td><h4><big>Оценка</big></h4></td>
+            </tr>
+            @foreach (var subject in Model.Subjects)
+            {
+                <tr>
+                    <td>@subject.SemesterCount </td>
+                    <td>@subject.Title </td>
+                    <td>@subject.TeacherLFM</td>
+                    <td>@(Model.Marks.Where(m => m.SubjectId == subject.Id).Count() > 0 ? Model.Marks.Where(m => m.SubjectId == subject.Id).FirstOrDefault().Mark.ToString() : "-")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

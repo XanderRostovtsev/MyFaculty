@@ -1,0 +1,46 @@
+﻿@model SemesterViewModel
+@{
+    ViewData["Title"] = "Добавить семестр";
+    @using (Html.BeginForm())
+    {
+        <h3>Добавить новый семестр</h3>
+        @Html.ValidationSummary(true)
+        <table width="400">
+            <tbody>
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.Count, "Порядковый номер: ")
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.Count, new { htmlAttributes = new { @type = "number", @min = "1", @max = "10", @step = "1" } })
+                        @Html.ValidationMessageFor(m => m.Count, "", new { @Class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.StartYear, "Год начала: ")
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.StartYear, new { htmlAttributes = new { @type = "number", @min = DateTime.Now.Year.ToString(), @max = "2100", @step = "1" } })
+                        @Html.ValidationMessageFor(m => m.StartYear, "", new { @Class = "text-danger" })
+                    </td>
+                </tr>
+
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.EndYear, "Год конца: ")
+                    </td>
+                    <td>
+                        @Html.EditorFor(m => m.EndYear, new { htmlAttributes = new { @type = "number", @min = DateTime.Now.Year.ToString(), @max = "2101", @step = "1" } })
+                        @Html.ValidationMessageFor(m => m.EndYear, "", new { @Class = "text-danger" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="Добавить" class="btn btn-success" />
+        <input type="button" value="Отмена" class="btn btn-danger" onclick='location.href="Index"' />
+    }
+}
+
+

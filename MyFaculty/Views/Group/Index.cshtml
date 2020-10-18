@@ -1,0 +1,37 @@
+﻿@model GroupViewModel
+@{
+    ViewData["Title"] = "Студенты";
+    <h2><big>Студенты</big></h2>
+
+        <table class="table-striped table-responsive table-bordered" width="500">
+            <tr>
+                <td colspan="4">
+                    <h4><big><b>@Model.Title (@Model.Students.Count())</b></big> @Html.ActionLink("Редактировать", "Edit", "Group", @Model)</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    @Html.ActionLink("Добавить студента", "Create", new { GroupId = Model.Id })
+                </td>
+            </tr>
+            <tr>
+                <td><h4><big>№</big></h4></td>
+                <td><h4><big>ФИО</big></h4></td>
+            </tr>
+            @foreach (var student in Model.Students.Select((data, index) => (data, index)))
+            {
+                <tr>
+                    <td>
+                        @(student.index + 1).
+                    </td>
+                    <td>
+                        @student.data.LastName @student.data.FirstName @student.data.MiddleName
+                    </td>
+                    <td>
+                        @Html.ActionLink("Редактировать студента", "Edit", @student.data) / @Html.ActionLink("Удалить студента", "Delete", @student.data)
+                    </td>
+                </tr>
+            }
+        </table>
+        <br /><br />
+}

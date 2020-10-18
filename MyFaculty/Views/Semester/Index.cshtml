@@ -1,0 +1,36 @@
+﻿@model List<SemesterViewModel>
+    @{
+        ViewData["Title"] = "Семестры";
+        <h2><big>Семестры</big></h2>
+
+        <h5><big>@Html.ActionLink("Добавить семестр", "Create", new { Count = 1, StartYear = DateTime.Now.Year, EndYear = DateTime.Now.Year})</big></h5>
+        <table class="table-striped table-responsive table-bordered" width="400">
+            <tbody>
+                <tr>
+                    <td>
+                        <h4><big>№</big></h4>
+                    </td>
+                    <td>
+                        <h4><big>Продолжительность</big></h4>
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+                @foreach (var semester in Model)
+                {
+                    <tr>
+                        <td>
+                            <h5><big><b>@semester.Count</b></big></h5>
+                        </td>
+                        <td>
+                            <h5><big><b>@semester.StartYear - @semester.EndYear</b></big></h5>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Удалить семестр", "Delete", @semester)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }

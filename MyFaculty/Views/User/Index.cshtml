@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<IdentityUser>
+
+@{
+    ViewData["Title"] = "Пользователи";
+    <h2>Пользователи</h2>
+    <table class="table">
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        <div id="userName@(user.Id)"                             
+                             onblur="changeUserName('@user.Id', this.textContent)"
+                             onkeyup="checkEnter(event)">
+                            <big>@user.UserName</big>
+                        </div>
+                    </td>
+                    <td>
+                        @if (user.UserName != User.Identity.Name)
+                        {
+                        <form asp-action="Delete" asp-route-userid="@user.Id" method="post">
+                            <a asp-controller="Role" asp-action="Edit" asp-route-userid="@user.Id" class="btn btn-sm btn-primary">Роли</a>
+                            <button type="submit" class="btn btn-sm btn-danger" @(user.UserName == User.Identity.Name ? "disabled" : "")>
+                                Удалить
+                            </button>
+                        </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <li><a asp-area="Identity" asp-page="/Account/Register">Зарегистрировать нового пользователя</a></li>
+}

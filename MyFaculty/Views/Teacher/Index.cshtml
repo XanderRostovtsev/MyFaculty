@@ -1,0 +1,63 @@
+﻿@model List<TeacherViewModel>
+@{
+    if (User.IsInRole("Teacher"))
+    {
+        ViewData["Title"] = Model.First().LastName;
+        <h2>Предметы</h2>
+    }
+    else
+    {
+        ViewData["Title"] = "Преподаватели";
+        <h2><big>Преподаватели</big></h2>
+    }
+
+    @if (User.IsInRole("Admin"))
+    {
+        <h5><big> @Html.ActionLink("Добавить преподавателя", "Create") </big></h5>
+    }
+    foreach (var teacher in Model)
+    {
+        <table class="table-striped table-responsive table-bordered" width="600">
+            <tr>
+                <td colspan="4">
+                    <h4><big><b>@teacher.LastName @teacher.FirstName @teacher.MiddleName</b></big> 
+                    @if (User.IsInRole("Admin")) { @Html.ActionLink("Редактировать", "Edit", @teacher) <text> / </text> @Html.ActionLink("Удалить", "Delete", @teacher) }</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Добавить предмет", "Create", "Subject", new { TeacherId = teacher.Id })
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td><h4><big>Семестр</big></h4></td>
+                <td><h4><big>Предмет</big></h4></td>
+                <td><h4><big>Группа</big></h4></td>
+            </tr>
+            @foreach (var subject in teacher.Subjects)
+            {
+            <tr>
+                <td>
+                    @(subject.SemesterCount).
+                </td>
+                <td>
+                    @subject.Title
+                </td>
+                <td>
+                    @Html.ActionLink(subject.GroupTitle, "GroupIndex", "Mark", new { groupId = subject.GroupId, subjectId = subject.Id })
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        @Html.ActionLink("Редактировать", "Edit", "Subject", @subject) / @Html.ActionLink("Удалить", "Delete", "Subject", @subject)
+                    </td>
+                }
+            </tr>
+            }
+        </table>
+        <br /><br />
+    }
+}

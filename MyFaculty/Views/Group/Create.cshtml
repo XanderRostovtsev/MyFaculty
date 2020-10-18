@@ -1,0 +1,24 @@
+﻿@model GroupViewModel
+@{ 
+    ViewData["Title"] = "Добавить группу";
+    @using (Html.BeginForm())
+    {
+        <h3>Добавить новую группу</h3>
+        @Html.ValidationSummary(true)
+        <table width="600">
+            <tbody>
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.Title, "Номер - название: ")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Title)
+                        @Html.ValidationMessageFor(m => m.Title, "", new { @Class = "text-danger" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="Добавить" class="btn btn-success" />
+        <input type="button" value="Отмена"  class="btn btn-danger" onclick='location.href="Index"' />
+     }
+}

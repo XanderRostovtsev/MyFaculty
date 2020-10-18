@@ -1,0 +1,59 @@
+﻿@model StudentViewModel
+@{ViewData["Title"] = "Добавить студента";
+    @using (Html.BeginForm())
+    {
+        <h3>Добавить нового студента</h3>
+        @Html.ValidationSummary(true)
+        <table width="600">
+            <tbody>
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.LastName, "Фамилия: ")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.LastName)
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @Class = "text-danger" })
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.FirstName, "Имя: ")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.FirstName)
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @Class = "text-danger" })
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.MiddleName, "Отчество: ")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.MiddleName)
+                        @Html.ValidationMessageFor(m => m.MiddleName, "", new { @Class = "text-danger" })
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.GroupId, "Группа: ")
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.GroupId, ViewBag.Groups as SelectList)
+                    </td>
+                </tr>
+                <tr style="height: 50px;">
+                    <td>
+                        @Html.LabelFor(m => m.Email, "Email: ")
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @Class = "text-danger" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="submit" value="Добавить" class="btn btn-success" />
+        <input type="button" value="Отмена" class="btn btn-danger" onclick='location.href="Index"' />
+    }
+}
